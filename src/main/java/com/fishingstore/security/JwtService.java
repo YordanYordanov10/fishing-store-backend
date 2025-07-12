@@ -19,7 +19,7 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.expiration}") // напр. 86400000 (24 часа)
+    @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
     // Генерира токен без допълнителни claims

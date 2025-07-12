@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationResponse {
+@NoArgsConstructor
+public class ProductResponse {
 
-    private String token;
+    private String name;
 
-    private String message;
+
 }

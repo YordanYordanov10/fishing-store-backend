@@ -4,6 +4,7 @@ import com.fishingstore.Product.Model.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,12 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private String imageUrl;
+
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 }
