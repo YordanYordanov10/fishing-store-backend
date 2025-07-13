@@ -3,11 +3,14 @@ package com.fishingstore.Category.Service;
 import com.fishingstore.Category.Model.Category;
 import com.fishingstore.Category.Repository.CategoryRepository;
 import com.fishingstore.Exception.CategoryAlreadyExistException;
+import com.fishingstore.Exception.CategoryNotExist;
 import com.fishingstore.Web.Dto.CategoryRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CategoryService {
@@ -34,5 +37,19 @@ public class CategoryService {
 
         categoryRepository.save(category);
         return category;
+    }
+
+    public List<Category> findAllCategories() {
+        return categoryRepository.findAll();
+    }
+
+    public Category findByCategoryId(UUID id) {
+
+        Optional<Category> existCategory = categoryRepository.findCategoriesById(id);
+
+        if(!existCategory.isPresent()) {
+            throw new CategoryNotExist("Category does not exist");
+        }
+        return categoryRepository.findCategoriesById(id).get();
     }
 }

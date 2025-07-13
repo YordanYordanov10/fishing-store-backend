@@ -2,6 +2,7 @@ package com.fishingstore.Web;
 
 
 import com.fishingstore.Exception.CategoryAlreadyExistException;
+import com.fishingstore.Exception.CategoryNotExist;
 import com.fishingstore.Exception.UnauthorizedException;
 import com.fishingstore.Exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,18 @@ public class ExceptionAdvice {
         body.put("error", "Bad Request");
         body.put("message", ex.getMessage());
         body.put("path", "/api/v1/categories");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    @ExceptionHandler(CategoryNotExist.class)
+    public ResponseEntity<Map<String, Object>> handleCategoryrNotExist(CategoryNotExist ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("error", "Bad Request");
+        body.put("message", ex.getMessage());
+        body.put("path", "/api/v1/categories/{id}");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }

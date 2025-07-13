@@ -14,7 +14,7 @@ public class CategoryRequest {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @Size(max = 150, message = "Description must be at most 50 characters")
+    @Size(max = 150, message = "Description must be at most 150 characters")
     private String description;
 
     @URL(message = "Must be a valid URL")
