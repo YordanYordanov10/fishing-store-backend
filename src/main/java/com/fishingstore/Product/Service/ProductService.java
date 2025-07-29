@@ -3,11 +3,13 @@ package com.fishingstore.Product.Service;
 import com.fishingstore.Category.Model.Category;
 import com.fishingstore.Category.Repository.CategoryRepository;
 import com.fishingstore.Exception.CategoryNotExist;
+import com.fishingstore.Exception.ProductNotExist;
 import com.fishingstore.Product.Model.Product;
 import com.fishingstore.Product.Repository.ProductRepository;
 import com.fishingstore.Web.Dto.ProductRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,5 +40,15 @@ public class ProductService {
 
       productRepository.save(product);
       return product;
+    }
+
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
+    }
+
+    public Product findProductById(UUID id) {
+
+        Optional<Product> product = productRepository.findById(id);
+        return product.orElseThrow(() -> new ProductNotExist("Invalid product ID"));
     }
 }

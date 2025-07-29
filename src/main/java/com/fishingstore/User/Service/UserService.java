@@ -1,6 +1,7 @@
 package com.fishingstore.User.Service;
 
 import com.fishingstore.Exception.DomainException;
+import com.fishingstore.Exception.UserNotExist;
 import com.fishingstore.User.Model.User;
 import com.fishingstore.User.Model.UserRole;
 import com.fishingstore.User.Repository.UserRepository;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService  {
@@ -32,4 +35,13 @@ public class UserService  {
         userRepository.save(user);
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUserById(UUID id) {
+
+        Optional<User> user = userRepository.findById(id);
+        return user.orElseThrow(() -> new UserNotExist("User not found"));
+    }
 }

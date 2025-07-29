@@ -26,7 +26,7 @@ public class ProductResponse {
 
     private String imageUrl;
 
-    private Category category;
+    private UUID categoryId;
 
 
 }

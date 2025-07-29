@@ -1,10 +1,7 @@
 package com.fishingstore.Web;
 
 
-import com.fishingstore.Exception.CategoryAlreadyExistException;
-import com.fishingstore.Exception.CategoryNotExist;
-import com.fishingstore.Exception.UnauthorizedException;
-import com.fishingstore.Exception.UserAlreadyExistsException;
+import com.fishingstore.Exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,8 +27,20 @@ public class ExceptionAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
+    @ExceptionHandler(UserNotExist.class)
+    public ResponseEntity<Map<String, Object>> handleUserNotExists(UserNotExist ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("error", "Bad Request");
+        body.put("message", ex.getMessage());
+        body.put("path", "/api/auth/user/{id}");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
     @ExceptionHandler(CategoryAlreadyExistException.class)
-    public ResponseEntity<Map<String, Object>> handleCategoryrAlreadyExist(CategoryAlreadyExistException ex) {
+    public ResponseEntity<Map<String, Object>> handleCategoryAlreadyExist(CategoryAlreadyExistException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());
@@ -43,13 +52,37 @@ public class ExceptionAdvice {
     }
 
     @ExceptionHandler(CategoryNotExist.class)
-    public ResponseEntity<Map<String, Object>> handleCategoryrNotExist(CategoryNotExist ex) {
+    public ResponseEntity<Map<String, Object>> handleCategoryNotExist(CategoryNotExist ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());
         body.put("error", "Bad Request");
         body.put("message", ex.getMessage());
         body.put("path", "/api/v1/categories/{id}");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    @ExceptionHandler(ProductAlreadyExistException.class)
+    public ResponseEntity<Map<String, Object>> handleProductAlreadyExist(ProductAlreadyExistException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("error", "Bad Request");
+        body.put("message", ex.getMessage());
+        body.put("path", "/api/v1/products");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    @ExceptionHandler(ProductNotExist.class)
+    public ResponseEntity<Map<String, Object>> handleProductNotExist(ProductNotExist ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("error", "Bad Request");
+        body.put("message", ex.getMessage());
+        body.put("path", "/api/v1/products/{id}");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }

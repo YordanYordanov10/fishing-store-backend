@@ -8,6 +8,7 @@ import com.fishingstore.Web.Mapper.DtoMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/categories")
     public ResponseEntity<CategoryResponse> createCategory(@RequestBody @Valid CategoryRequest categoryRequest) {
 

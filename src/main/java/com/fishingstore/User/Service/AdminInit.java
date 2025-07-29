@@ -41,7 +41,5 @@ public class AdminInit implements CommandLineRunner {
 
         userService.save(admin);
 
-
-
     }
 }

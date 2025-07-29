@@ -1,0 +1,12 @@
+package com.fishingstore.Exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class UserNotExist extends RuntimeException {
+
+    public UserNotExist(String message) {
+        super(message);
+    }
+}
